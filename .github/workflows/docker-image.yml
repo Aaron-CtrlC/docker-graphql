@@ -11,23 +11,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Obtener el código fuente
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # 2. Generar versión semántica dinámica
+      - name: Bump version and get tag
+        id: version
+        uses: paulhatch/semantic-version@v5.4.0
+        with:
+          major_pattern: "major"
+          minor_pattern: "feat"
+          version_format: "${major}.${minor}.${patch}"
+
+      # 3. Imprimir versión calculada
+      - name: Display Version
+        run: |
+          echo "New version: ${{ steps.version.outputs.version }}"
+
+      # 4. Iniciar sesión en Docker Hub
       - name: Docker login
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PSS }}
+          password: ${{ secrets.DOCKER_PASSWORD }}#      - name: Build Docker Image
+#        run: |
+#          docker build -t e255997960/docker-graphql:1.0.1 .
+#          docker build -t e255997960/docker-graphql:latest .
 
-      - name: Build Docker Image
-        run: |
-          docker build -t e255997960/docker-graphql:1.0.1 .
-          docker build -t e255997960/docker-graphql:latest .
-
-      - name: Push Docker Image
-        run: |
-          docker push e255997960/docker-graphql:1.0.1
-          docker push e255997960/docker-graphql:latest
+#      - name: Push Docker Image
+ #       run: |
+  #        docker push e255997960/docker-graphql:1.0.1
+   #       docker push e255997960/docker-graphql:latest
