@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 FROM node:19-alpine3.15 as dev-deps
 WORKDIR /app
@@ -36,7 +35,6 @@ CMD [ "node","dist/main.js"]
 
 
 
-=======
 FROM node:18-alpine
 
 WORKDIR /app
@@ -49,4 +47,3 @@ COPY . .
 EXPOSE 4000
 
 CMD ["npm", "start"]
->>>>>>> b9750136ec66d5b55e2a803499d57b51c26c99ab
