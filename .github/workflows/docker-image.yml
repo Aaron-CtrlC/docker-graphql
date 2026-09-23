@@ -19,8 +19,8 @@ jobs:
     - name: Docker login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PSS }}
       run: |
         echo "Iniciando sesión en Docker..."
-        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+        echo "$DOCKER_PSS" | docker login -u "$DOCKER_USER" --password-stdin
         echo "Sesión iniciada correctamente."
